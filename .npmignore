@@ -1,0 +1,6 @@
+src/
+!package-lock.json
+.github/
+release.config.js
+tsconfig.json
+**/*.mdj

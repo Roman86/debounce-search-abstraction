@@ -1,0 +1,49 @@
+{
+  "name": "debounce-search-abstraction",
+  "version": "1.0.0",
+  "description": "A tool to easily make the search debounce properly",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "jest",
+    "lint": "eslint --fix ."
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/debounce-search-abstraction.umd.js",
+  "module": "./dist/debounce-search-abstraction.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/debounce-search-abstraction.es.js",
+      "require": "./dist/debounce-search-abstraction.umd.js"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Roman86/debounce-search-abstraction.git"
+  },
+  "author": "romych.sync@gmail.com",
+  "license": "ISC",
+  "peerDependencies": {
+    "@types/lodash": "^4.14.182",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.5.1",
+    "@types/lodash": "^4.14.182",
+    "@typescript-eslint/eslint-plugin": "^5.26.0",
+    "@typescript-eslint/parser": "^5.26.0",
+    "eslint": "^8.16.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-editorconfig": "^3.2.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "jest": "^28.1.0",
+    "lodash": "^4.17.21",
+    "prettier": "^2.6.2",
+    "ts-jest": "^28.0.3",
+    "typescript": "^4.7.2",
+    "vite": "^2.9.9"
+  }
+}
