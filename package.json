@@ -1,6 +1,6 @@
 {
   "name": "debounce-search-abstraction",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "A tool to easily make the search debounce properly",
   "scripts": {
     "dev": "vite",
