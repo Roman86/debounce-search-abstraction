@@ -7,26 +7,26 @@ export type SearchResultsProvider<R> = (options: {
     setResults: SearchResultsProcessor<R>;
 }) => void;
 
-export type AsyncSearchOptions<R> = {
+export type DebounceSearchOptions<R> = {
     debounceMs: number;
     resultsProvider: SearchResultsProvider<R>;
     resultsProcessor: SearchResultsProcessor<R>;
 };
 
-export interface IAsyncSearch {
+export interface IDebounceSearch {
     search(query: string): void;
 
     search(query: string, forceIfSame: boolean): void;
 }
 
-export class DebounceSearch<R> implements IAsyncSearch {
+export class DebounceSearch<R> implements IDebounceSearch {
     private seq: number = 0;
 
     private lastQuery: string = '';
 
     private readonly debouncedQueryProcessor!: ProcessQueryInnerCallback;
 
-    constructor(options: AsyncSearchOptions<R>) {
+    constructor(options: DebounceSearchOptions<R>) {
         this.debouncedQueryProcessor = debounce<ProcessQueryInnerCallback>(
             (seq, query) => {
                 if (seq === this.seq) {
@@ -59,7 +59,7 @@ export class DebounceSearch<R> implements IAsyncSearch {
 }
 
 export function makeDebounceSearch<R = any>(
-    options: AsyncSearchOptions<R>,
-): IAsyncSearch {
+    options: DebounceSearchOptions<R>,
+): IDebounceSearch {
     return new DebounceSearch<R>(options);
 }
