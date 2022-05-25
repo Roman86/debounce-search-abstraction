@@ -1,6 +1,9 @@
 # debounce-search-abstraction
 A tool to easily make the search debounce properly
 
+ℹ️ it doesn't interact with DOM. It's abstract. You feed it with a search query, and it invokes your data callbacks.
+It encapsulates the debounce for your queries and skips the late results (concurrent requests).
+
 ## Usage
 
 ```shell
