@@ -9,7 +9,7 @@ npm i debounce-search-abstraction
 
 ```typescript
 // import the class
-import {DebounceSearch} from "debounce-search-abstraction";
+import { DebounceSearch } from 'debounce-search-abstraction';
 
 // optionally define a result type (any by default)
 type SearchResult = {
@@ -41,7 +41,7 @@ const search = new DebounceSearch<SearchResult>({
 // Example
 // We emulate the user typing "Hello Kitty" with some delays and then erasing the text
 // [ inputDelay, char ]
-const type: Array<number, string> = [
+const type: Array<[number, string]> = [
     [100, 'h'],
     [300, 'e'],
     [400, 'l'],
@@ -59,7 +59,11 @@ let text = '';
 
 for (const [delay, char] of type) {
     await sleep(delay);
-    text += char;
+    if (char) {
+        text += char;
+    } else {
+        text = '';
+    }
     search.search(text);
 }
 
