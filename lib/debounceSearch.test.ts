@@ -15,7 +15,7 @@ describe('debounceSearch', () => {
             keys: 25,
             api: 40,
             enough: 70, // must include both
-        }
+        };
 
         const resultsProcessorCallback = jest.fn();
 
@@ -42,17 +42,17 @@ describe('debounceSearch', () => {
         // We emulate the user typing "Hello Kitty" with some delays and then erasing the text
         // [ inputDelay, char ]
         const type: Array<[number, string]> = [
-            [delays.keys+0, 'H'],
-            [delays.keys-1, 'e'],
-            [delays.keys-1, 'l'],
-            [delays.keys+1, 'l'],
-            [delays.keys-1, 'o'],
+            [delays.keys + 0, 'H'],
+            [delays.keys - 1, 'e'],
+            [delays.keys - 1, 'l'],
+            [delays.keys + 1, 'l'],
+            [delays.keys - 1, 'o'],
             [delays.enough, ' '],
-            [delays.keys+1, 'K'],
-            [delays.keys-1, 'i'],
-            [delays.keys+1, 't'],
-            [delays.keys-1, 't'],
-            [delays.keys-1, 'y'],
+            [delays.keys + 1, 'K'],
+            [delays.keys - 1, 'i'],
+            [delays.keys + 1, 't'],
+            [delays.keys - 1, 't'],
+            [delays.keys - 1, 'y'],
             [delays.enough, ''], // erasing the text
         ];
         let text = '';
@@ -70,7 +70,10 @@ describe('debounceSearch', () => {
         await sleep(100); // let all callbacks a time to invoke
 
         expect(resultsProcessorCallback).toHaveBeenNthCalledWith(1, 'Hello');
-        expect(resultsProcessorCallback).toHaveBeenNthCalledWith(2, 'Hello Kitty');
+        expect(resultsProcessorCallback).toHaveBeenNthCalledWith(
+            2,
+            'Hello Kitty',
+        );
         expect(resultsProcessorCallback).toHaveBeenNthCalledWith(3, '');
         expect(resultsProcessorCallback).toHaveBeenCalledTimes(3);
     });

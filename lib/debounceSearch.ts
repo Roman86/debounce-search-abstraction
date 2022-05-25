@@ -1,4 +1,4 @@
-import { debounce } from 'lodash';
+import { debounce, DebouncedFunc } from 'lodash';
 
 type ProcessQueryInnerCallback = (seq: number, query: string) => void;
 export type SearchResultsProcessor<R> = (result: R) => void;
@@ -24,7 +24,7 @@ export class DebounceSearch<R> implements IDebounceSearch {
 
     private lastQuery: string = '';
 
-    private readonly debouncedQueryProcessor!: ProcessQueryInnerCallback;
+    private readonly debouncedQueryProcessor!: DebouncedFunc<ProcessQueryInnerCallback>;
 
     constructor(options: DebounceSearchOptions<R>) {
         this.debouncedQueryProcessor = debounce<ProcessQueryInnerCallback>(
@@ -54,6 +54,9 @@ export class DebounceSearch<R> implements IDebounceSearch {
             this.seq += 1;
             // console.log('K', query);
             this.debouncedQueryProcessor(this.seq, query);
+            if (!query) {
+                this.debouncedQueryProcessor.flush();
+            }
         }
     }
 }
