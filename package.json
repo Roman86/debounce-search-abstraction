@@ -28,7 +28,6 @@
   "author": "romych.sync@gmail.com",
   "license": "ISC",
   "peerDependencies": {
-    "@types/lodash": "^4.14.182",
     "lodash": "^4.17.21"
   },
   "dependencies": {
