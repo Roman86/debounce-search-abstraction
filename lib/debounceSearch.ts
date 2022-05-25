@@ -11,6 +11,7 @@ export type DebounceSearchOptions<R> = {
     debounceMs: number;
     resultsProvider: SearchResultsProvider<R>;
     resultsProcessor: SearchResultsProcessor<R>;
+    emptyQueryResult: () => R;
 };
 
 export interface IDebounceSearch {
@@ -30,16 +31,23 @@ export class DebounceSearch<R> implements IDebounceSearch {
         this.debouncedQueryProcessor = debounce<ProcessQueryInnerCallback>(
             (seq, query) => {
                 if (seq === this.seq) {
-                    options.resultsProvider({
-                        query,
-                        setResults: (result) => {
-                            if (seq === this.seq) {
-                                options.resultsProcessor(result);
-                            } else {
-                                // console.log('SKIP RESULT');
-                            }
-                        },
-                    });
+                    if (
+                        !query &&
+                        typeof options.emptyQueryResult === 'function'
+                    ) {
+                        options.resultsProcessor(options.emptyQueryResult());
+                    } else {
+                        options.resultsProvider({
+                            query,
+                            setResults: (result) => {
+                                if (seq === this.seq) {
+                                    options.resultsProcessor(result);
+                                } else {
+                                    // console.log('SKIP RESULT');
+                                }
+                            },
+                        });
+                    }
                 } else {
                     // console.log('SKIP REQUEST');
                 }

@@ -36,10 +36,15 @@ const search = new DebounceSearch<SearchResult>({
         // note: it's called with the actual results only (late results won't get here)
         console.log('RESULT', result); // render some list here
     },
+    // when the query is empty - you don't have to make any requests,
+    // just provide the empty results (according to your results type)
+    emptyQueryResult: () => ({
+        items: [],
+    }),
 });
 
 // Example
-// We emulate the user typing "Hello Kitty" with some delays and then erasing the text
+// We emulate the user typing "Hello Foobar" with some delays and then erasing the text
 // [ inputDelay, char ]
 const type: Array<[number, string]> = [
     [100, 'h'],
@@ -48,11 +53,12 @@ const type: Array<[number, string]> = [
     [200, 'l'],
     [400, 'o'],
     [1000, ' '],
-    [400, 'K'],
-    [400, 'i'],
-    [300, 't'],
-    [100, 't'],
-    [200, 'y'],
+    [400, 'F'],
+    [400, 'o'],
+    [300, 'o'],
+    [100, 'b'],
+    [200, 'a'],
+    [100, 'r'],
     [1000, ''], // erasing the text
 ];
 let text = '';
@@ -71,7 +77,7 @@ for (const [delay, char] of type) {
 // extra inputs invalidate late results.
 // Results of the following 3 queries will be given to resultsProcessor:
 // Hello
-// Hello Kitty
+// Hello Foobar
 // (empty)
 
 // resultsProvider is also called effectively (respecting the debounceMs)

@@ -12,9 +12,9 @@ describe('debounceSearch', () => {
         // https://github.com/lodash/lodash/issues/2893
 
         const delays = {
-            keys: 25,
-            api: 40,
-            enough: 70, // must include both
+            keys: 15,
+            api: 20,
+            enough: 40, // must include both
         };
 
         const resultsProcessorCallback = jest.fn();
@@ -36,10 +36,11 @@ describe('debounceSearch', () => {
             resultsProcessor(result) {
                 resultsProcessorCallback(result);
             },
+            emptyQueryResult: () => '',
         });
 
         // Example
-        // We emulate the user typing "Hello Kitty" with some delays and then erasing the text
+        // We emulate the user typing "Hello Foobar" with some delays and then erasing the text
         // [ inputDelay, char ]
         const type: Array<[number, string]> = [
             [delays.keys + 0, 'H'],
@@ -48,11 +49,12 @@ describe('debounceSearch', () => {
             [delays.keys + 1, 'l'],
             [delays.keys - 1, 'o'],
             [delays.enough, ' '],
-            [delays.keys + 1, 'K'],
-            [delays.keys - 1, 'i'],
-            [delays.keys + 1, 't'],
-            [delays.keys - 1, 't'],
-            [delays.keys - 1, 'y'],
+            [delays.keys + 1, 'F'],
+            [delays.keys - 1, 'o'],
+            [delays.keys + 1, 'o'],
+            [delays.keys - 1, 'b'],
+            [delays.keys - 1, 'a'],
+            [delays.keys - 1, 'r'],
             [delays.enough, ''], // erasing the text
         ];
         let text = '';
@@ -72,7 +74,7 @@ describe('debounceSearch', () => {
         expect(resultsProcessorCallback).toHaveBeenNthCalledWith(1, 'Hello');
         expect(resultsProcessorCallback).toHaveBeenNthCalledWith(
             2,
-            'Hello Kitty',
+            'Hello Foobar',
         );
         expect(resultsProcessorCallback).toHaveBeenNthCalledWith(3, '');
         expect(resultsProcessorCallback).toHaveBeenCalledTimes(3);
