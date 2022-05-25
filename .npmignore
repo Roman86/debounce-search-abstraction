@@ -1,6 +1,13 @@
 src/
+lib/
 !package-lock.json
 .github/
-release.config.js
+.editorconfig
+.eslintrc
+.gitignore
+.prettierrc.json
+jest.config.js
 tsconfig.json
+vite.config.js
+release.config.js
 **/*.mdj
