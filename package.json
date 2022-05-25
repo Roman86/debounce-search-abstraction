@@ -12,6 +12,7 @@
     "helper",
     "abstraction",
     "lazy",
+    "concurrent",
     "typescript",
     "ts"
   ],
