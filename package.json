@@ -14,6 +14,7 @@
   ],
   "main": "./dist/debounce-search-abstraction.umd.js",
   "module": "./dist/debounce-search-abstraction.es.js",
+  "types": "./dist/main.d.ts",
   "exports": {
     ".": {
       "import": "./dist/debounce-search-abstraction.es.js",
@@ -46,6 +47,7 @@
     "prettier": "^2.6.2",
     "ts-jest": "^28.0.3",
     "typescript": "^4.7.2",
-    "vite": "^2.9.9"
+    "vite": "^2.9.9",
+    "vite-plugin-dts": "^1.2.0"
   }
 }
