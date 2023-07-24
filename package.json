@@ -21,7 +21,8 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "jest",
-    "lint": "eslint --fix ."
+    "lint": "eslint *.js lib/*",
+    "lint:fix": "eslint --fix *.js lib/*"
   },
   "files": [
     "dist"
