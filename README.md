@@ -78,8 +78,8 @@ const scenario: Array<
     ['H', 300, 'H', null], // no response - it takes 300+200=500
     ['e', 400, 'He', null],
     ['l', 200, null, null],
-    ['l', 601, 'Hell', ['HELL']], // 500 is enough to get the first response
-    ['o', 1001, 'Hello', ['HELLO', 'HELLO (5)']], // 700 is enough to get both responses
+    ['l', 500, 'Hell', ['HELL']], // 500 is enough to get the first response
+    ['o', 700, 'Hello', ['HELLO', 'HELLO (5)']], // 700 is enough to get both responses
     [' ', 250, null, null], // no request, quicker than debounce
     ['T', 600, 'Hello T', ['HELLO T']],
     ['h', 300, 'Hello Th', null],
@@ -87,6 +87,6 @@ const scenario: Array<
     ['r', 200, null, null],
     ['e', 400, 'Hello There', null],
     ['!', 800, 'Hello There!', ['HELLO THERE!', 'HELLO THERE! (12)']],
-    ['', 800, '', ['', ' (0)']],
+    ['', 800, '', ['']],
 ];
 ```
