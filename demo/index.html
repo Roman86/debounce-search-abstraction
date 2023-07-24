@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title><%- title %></title>
+        <style >
+            * {
+                margin: 0;
+            }
+            #form-wrapper {
+                justify-content: center;
+                width: 500px;
+                margin: 25vh auto;
+                color: #555;
+            }
+            .minor {
+                color: #aaa;
+            }
+            #request, #result {
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                padding: 4px 8px;
+                min-height: 20px;
+                word-break: break-all;
+            }
+        </style>
+</head>
+<body>
+    <div id="form-wrapper">
+        <h1 style="margin-bottom: 20px">debounce-search-abstraction</h1>
+        <p style="margin-bottom: 40px;">In this demo we will be doing two subsequent api calls (both emulated) with our debounced query</p>
+
+        <div style="width: auto; display: flex; gap: 10px; flex-flow: column nowrap">
+            <div style="display: flex; width: 100%">
+                <label for="inp" style="flex: 0 0 auto">Query Input:</label><input type="text" id="inp" style="flex: 1 1 auto">
+            </div>
+            <div style="display: grid; gap: 10px; grid-template-columns: 200px auto 200px; text-align: center">
+                <span id="request"></span><span class="minor">&dash;&gt;</span><span id="result"></span>
+                <span class="minor">request</span><span></span><span class="minor">result</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

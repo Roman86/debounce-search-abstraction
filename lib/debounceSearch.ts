@@ -1,10 +1,12 @@
 import { debounce, DebouncedFunc } from 'lodash';
 
 type ProcessQueryInnerCallback = (seq: number, query: string) => void;
-export type SearchResultsProcessor<R> = (result: R) => void;
+export type SearchResultsProcessor<R> = (result: R, query: string) => void;
+export type SetResultsCallback<R> = (result: R) => void;
 export type SearchResultsProvider<R> = (options: {
     query: string;
-    setResults: SearchResultsProcessor<R>;
+    setResults: SetResultsCallback<R>;
+    isQueryStillActual: () => boolean;
 }) => void;
 
 export type DebounceSearchOptions<R> = {
@@ -12,6 +14,7 @@ export type DebounceSearchOptions<R> = {
     resultsProvider: SearchResultsProvider<R>;
     resultsProcessor: SearchResultsProcessor<R>;
     emptyQueryResult: () => R;
+    trimQuery?: boolean;
 };
 
 export interface IDebounceSearch {
@@ -27,42 +30,47 @@ export class DebounceSearch<R> implements IDebounceSearch {
 
     private readonly debouncedQueryProcessor!: DebouncedFunc<ProcessQueryInnerCallback>;
 
-    constructor(options: DebounceSearchOptions<R>) {
+    constructor(private options: DebounceSearchOptions<R>) {
         this.debouncedQueryProcessor = debounce<ProcessQueryInnerCallback>(
             (seq, query) => {
                 if (seq === this.seq) {
-                    if (
-                        !query &&
-                        typeof options.emptyQueryResult === 'function'
-                    ) {
-                        options.resultsProcessor(options.emptyQueryResult());
+                    this.lastQuery = query;
+                    if (!query) {
+                        this.options.resultsProcessor(
+                            this.options.emptyQueryResult(),
+                            query,
+                        );
                     } else {
-                        options.resultsProvider({
+                        this.options.resultsProvider({
                             query,
                             setResults: (result) => {
                                 if (seq === this.seq) {
-                                    options.resultsProcessor(result);
+                                    this.options.resultsProcessor(
+                                        result,
+                                        query,
+                                    );
                                 } else {
                                     // console.log('SKIP RESULT');
                                 }
                             },
+                            isQueryStillActual: () => seq === this.seq,
                         });
                     }
                 } else {
                     // console.log('SKIP REQUEST');
                 }
             },
-            options.debounceMs || 300,
+            this.options.debounceMs || 300,
         );
     }
 
     public search(query: string, forceIfSame: boolean = false) {
-        if (query !== this.lastQuery || forceIfSame) {
-            this.lastQuery = query;
+        const queryProcessed = this.options.trimQuery ? query.trim() : query;
+        if (queryProcessed !== this.lastQuery || forceIfSame) {
             this.seq += 1;
             // console.log('K', query);
-            this.debouncedQueryProcessor(this.seq, query);
-            if (!query) {
+            this.debouncedQueryProcessor(this.seq, queryProcessed);
+            if (!queryProcessed) {
                 this.debouncedQueryProcessor.flush();
             }
         }
