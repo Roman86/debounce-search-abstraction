@@ -20,8 +20,8 @@ type SearchResult = {
     // usually you would want some array of resulting items here
 };
 
-// create your instance (2 important callbacks)
-const search = new DebounceSearch<SearchResult>({
+// create your instance (see detailed comments for available options)
+const search = makeDebounceSearch<SearchResult>({
     // input reaction debounce so API requests won't go out too often as you type
     debounceMs: 300,
     // this guy makes the api request(s) to obtain and set (with callback) the search result data

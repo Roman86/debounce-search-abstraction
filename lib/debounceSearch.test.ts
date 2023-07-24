@@ -1,4 +1,4 @@
-import { DebounceSearch } from './debounceSearch';
+import { makeDebounceSearch } from './debounceSearch';
 import { booleanFilter } from './booleanFilter';
 import { sleep } from '../demo/sleep';
 import { nullFilter } from './nullFilter';
@@ -16,8 +16,8 @@ describe('debounceSearch', () => {
             (transformed: string) => void
         > = jest.fn();
 
-        // create your instance (2 important callbacks)
-        const search = new DebounceSearch<SearchResult>({
+        // create your instance (see detailed comments for available options)
+        const search = makeDebounceSearch<SearchResult>({
             // input reaction debounce so API requests won't go out too often as you type
             debounceMs: 300,
             // this guy makes the api request(s) to obtain and set (with callback) the search result data
