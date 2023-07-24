@@ -57,6 +57,8 @@ describe('debounceSearch', () => {
             emptyQueryResult: () => ({
                 transformedQuery: '',
             }),
+            // we don't want trailing and leading spaces to make new requests
+            trimQuery: true,
         });
 
         // Example scenario (from the package test)
@@ -77,14 +79,14 @@ describe('debounceSearch', () => {
             ['l', 200, null, null],
             ['l', 500, 'Hell', ['HELL']], // 500 is enough to get the first response
             ['o', 700, 'Hello', ['HELLO', 'HELLO (5)']], // 700 is enough to get both responses
-            [' ', 250, null, null], // no request, quicker than debounce
+            [' ', 600, null, null], // space doesn't affect the query, because we used the trimQuery option
             ['T', 600, 'Hello T', ['HELLO T']],
             ['h', 300, 'Hello Th', null],
             ['e', 100, null, null],
             ['r', 200, null, null],
             ['e', 400, 'Hello There', null],
             ['!', 800, 'Hello There!', ['HELLO THERE!', 'HELLO THERE! (12)']],
-            ['', 800, '', ['']],
+            ['', 700, '', ['']], // clearing the query - we will get the empty result immediately
         ];
 
         let growingQuery = '';
