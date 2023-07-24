@@ -89,13 +89,4 @@ const scenario: Array<
     ['!', 800, 'Hello There!', ['HELLO THERE!', 'HELLO THERE! (12)']],
     ['', 800, '', ['', ' (0)']],
 ];
-
-// resultsProcessor will be called 3 times (due to input and request delays),
-// extra inputs invalidate late results.
-// Results of the following 3 queries will be given to resultsProcessor:
-// Hello
-// Hello Foobar
-// (empty)
-
-// resultsProvider is also called effectively (respecting the debounceMs)
 ```
