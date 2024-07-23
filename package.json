@@ -17,6 +17,7 @@
     "ts"
   ],
   "scripts": {
+    "prepublishOnly": "npm run build",
     "dev": "vite --config vite.demo.config.js",
     "build": "tsc && vite build",
     "test": "jest",
@@ -40,7 +41,7 @@
     "url": "https://github.com/Roman86/debounce-search-abstraction.git"
   },
   "author": "romych.sync@gmail.com",
-  "license": "ISC",
+  "license": "MIT",
   "peerDependencies": {
     "lodash": "^4"
   },
