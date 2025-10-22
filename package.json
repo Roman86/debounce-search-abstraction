@@ -17,7 +17,7 @@
     "ts"
   ],
   "scripts": {
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "npm run build && git diff --exit-code --quiet || { echo \"Git working directory is not clean. Please commit or stash your changes.\"; exit 1; } && npm run test",
     "dev": "vite --config vite.demo.config.js",
     "build": "tsc && vite build",
     "test": "jest",
@@ -29,7 +29,7 @@
   ],
   "main": "./dist/debounce-search-abstraction.umd.js",
   "module": "./dist/debounce-search-abstraction.es.js",
-  "types": "./dist/main.d.ts",
+  "types": "./dist/lib/main.d.ts",
   "exports": {
     ".": {
       "import": "./dist/debounce-search-abstraction.es.js",
@@ -38,31 +38,37 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Roman86/debounce-search-abstraction.git"
+    "url": "git+https://github.com/Roman86/debounce-search-abstraction.git"
   },
   "author": "romych.sync@gmail.com",
   "license": "MIT",
   "peerDependencies": {
     "lodash": "^4"
   },
-  "dependencies": {
-    "lodash": "^4"
-  },
   "devDependencies": {
+    "@eslint/js": "^9.8.0",
+    "@playwright/test": "^1.45.3",
+    "@types/eslint__js": "^8.42.3",
     "@types/jest": "^29.5.3",
     "@types/lodash": "^4",
-    "@typescript-eslint/eslint-plugin": "^5.32.0",
-    "@typescript-eslint/parser": "^5.32.0",
-    "eslint": "^8.21.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-editorconfig": "^3.2.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "jest": "^28.1.3",
-    "prettier": "^2.7.1",
-    "ts-jest": "^28.0.7",
-    "typescript": "^4.7.4",
-    "vite": "^2.9.14",
-    "vite-plugin-dts": "^1.4.1",
-    "vite-plugin-html": "^3.2.0"
+    "@types/node": "^22.1.0",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-standard-with-typescript": "^43.0.1",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-promise": "^6.6.0",
+    "http-server": "^14.1.1",
+    "jest": "^30.2.0",
+    "microbundle": "^0.15.1",
+    "prettier": "^3.3.3",
+    "prettier-plugin-multiline-arrays": "^3.0.6",
+    "ts-jest": "^29.4.5",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.0.1",
+    "vite": "^7.1.5",
+    "vite-plugin-dts": "^4.5.4",
+    "vite-plugin-html": "^3.2.2"
   }
 }

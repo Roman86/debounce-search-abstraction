@@ -1,8 +1,11 @@
-/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
-module.exports = {
+export default {
     preset: 'ts-jest',
     testEnvironment: 'node',
-    moduleFileExtensions: ['ts', 'js', 'json'],
+    moduleFileExtensions: [
+        'ts',
+        'js',
+        'json',
+    ],
     collectCoverageFrom: ['lib/**/*.ts'],
     testTimeout: 20000,
 };

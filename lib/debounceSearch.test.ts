@@ -4,17 +4,15 @@ import { sleep } from '../demo/sleep';
 import { nullFilter } from './nullFilter';
 
 // optionally define a result type (any by default)
-type SearchResult = {
+interface SearchResult {
     transformedQuery: string; // in this guide we will be transforming the input query
     // usually you would want some array of resulting items here
-};
+}
 
 describe('debounceSearch', () => {
     it('delayed input', async () => {
         const requestCallback: jest.Mock<(query: string) => void> = jest.fn();
-        const resultsProcessorCallback: jest.Mock<
-            (transformed: string) => void
-        > = jest.fn();
+        const resultsProcessorCallback: jest.Mock<(transformed: string) => void> = jest.fn();
 
         // create your instance (see detailed comments for available options)
         const search = makeDebounceSearch<SearchResult>({
@@ -71,26 +69,98 @@ describe('debounceSearch', () => {
         // 3. outgoing query or null (if skipped due to debounce)
         // 4. search results or null (if skipped due to updated query)
         // we have a debounce set to 300 and API delays are 200 for uppercase result + 200 for length result
-        const scenario: Array<
-            [string, number, null | string, string[] | null]
-        > = [
-            ['H', 300, 'H', null], // no response - it takes 300+200=500
-            ['e', 400, 'He', null],
-            ['l', 200, null, null],
-            ['l', 500, 'Hell', ['HELL']], // 500 is enough to get the first response
-            ['o', 700, 'Hello', ['HELLO', 'HELLO (5)']], // 700 is enough to get both responses
-            [' ', 600, null, null], // space doesn't affect the query, because we used the trimQuery option
-            ['T', 600, 'Hello T', ['HELLO T']],
-            ['h', 300, 'Hello Th', null],
-            ['e', 100, null, null],
-            ['r', 200, null, null],
-            ['e', 400, 'Hello There', null],
-            ['!', 800, 'Hello There!', ['HELLO THERE!', 'HELLO THERE! (12)']],
-            ['', 700, '', ['']], // clearing the query - we will get the empty result immediately
+        const scenario: Array<[string, number, null | string, string[] | null]> = [
+            [
+                'H',
+                300,
+                'H',
+                null,
+            ], // no response - it takes 300+200=500
+            [
+                'e',
+                400,
+                'He',
+                null,
+            ],
+            [
+                'l',
+                200,
+                null,
+                null,
+            ],
+            [
+                'l',
+                500,
+                'Hell',
+                ['HELL'],
+            ], // 500 is enough to get the first response
+            [
+                'o',
+                700,
+                'Hello',
+                [
+                    'HELLO',
+                    'HELLO (5)',
+                ],
+            ], // 700 is enough to get both responses
+            [
+                ' ',
+                600,
+                null,
+                null,
+            ], // space doesn't affect the query, because we used the trimQuery option
+            [
+                'T',
+                600,
+                'Hello T',
+                ['HELLO T'],
+            ],
+            [
+                'h',
+                300,
+                'Hello Th',
+                null,
+            ],
+            [
+                'e',
+                100,
+                null,
+                null,
+            ],
+            [
+                'r',
+                200,
+                null,
+                null,
+            ],
+            [
+                'e',
+                400,
+                'Hello There',
+                null,
+            ],
+            [
+                '!',
+                800,
+                'Hello There!',
+                [
+                    'HELLO THERE!',
+                    'HELLO THERE! (12)',
+                ],
+            ],
+            [
+                '',
+                700,
+                '',
+                [''],
+            ], // clearing the query - we will get the empty result immediately
         ];
 
         let growingQuery = '';
-        for (const [char, nextDelay] of scenario) {
+        for (const [
+            char,
+            nextDelay,
+        ] of scenario) {
             if (char) {
                 growingQuery += char;
             } else {
@@ -119,8 +189,6 @@ describe('debounceSearch', () => {
         events.results.forEach((r, i) => {
             expect(resultsProcessorCallback).toHaveBeenNthCalledWith(i + 1, r);
         });
-        expect(resultsProcessorCallback).toHaveBeenCalledTimes(
-            events.results.length,
-        );
+        expect(resultsProcessorCallback).toHaveBeenCalledTimes(events.results.length);
     });
 });

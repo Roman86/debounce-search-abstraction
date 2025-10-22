@@ -1,7 +1,7 @@
-const { defineConfig } = require('vite');
+import { defineConfig } from 'vite';
 import { createHtmlPlugin } from 'vite-plugin-html';
 
-module.exports = defineConfig({
+export default defineConfig({
     plugins: [
         createHtmlPlugin({
             template: 'demo/index.html',

@@ -3,10 +3,9 @@ lib/
 !package-lock.json
 .github/
 .editorconfig
-.eslintrc
+.eslintrc.js
 .gitignore
-.prettierrc.json
-jest.config.js
+.prettierrc.cjs
 tsconfig.json
 vite.config.js
 release.config.js
