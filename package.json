@@ -31,10 +31,9 @@
   "module": "./dist/debounce-search-abstraction.es.js",
   "types": "./dist/lib/main.d.ts",
   "exports": {
-    ".": {
-      "import": "./dist/debounce-search-abstraction.es.js",
-      "require": "./dist/debounce-search-abstraction.umd.js"
-    }
+    "types": "./dist/lib/main.d.ts",
+    "import": "./dist/debounce-search-abstraction.es.js",
+    "require": "./dist/debounce-search-abstraction.umd.js"
   },
   "repository": {
     "type": "git",
