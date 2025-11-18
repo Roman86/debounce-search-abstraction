@@ -17,7 +17,7 @@
     "ts"
   ],
   "scripts": {
-    "prepublishOnly": "npm run build && git diff --exit-code --quiet || { echo \"Git working directory is not clean. Please commit or stash your changes.\"; exit 1; } && npm run test",
+    "prepublishOnly": "npm run test && npm run build && npm run build && git diff --exit-code --quiet || { echo \"Git working directory is not clean. Please commit or stash your changes.\"; exit 1; }",
     "dev": "vite --config vite.demo.config.js",
     "build": "tsc && vite build",
     "test": "jest",
@@ -69,5 +69,9 @@
     "vite": "^7.1.5",
     "vite-plugin-dts": "^4.5.4",
     "vite-plugin-html": "^3.2.2"
+  },
+  "overrides": {
+    "js-yaml": "^4.1.1",
+    "glob": "^11.1.0"
   }
 }
