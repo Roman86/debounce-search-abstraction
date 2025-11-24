@@ -27,5 +27,8 @@ jobs:
       - name: Tests
         run: npm run test
 
+      - name: Check who is publishing
+        run: npm whoami
+
       - name: Publish
-        run: npm publish --access public
+        run: npm publish --access public --provenance
