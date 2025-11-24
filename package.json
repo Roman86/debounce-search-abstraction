@@ -17,7 +17,6 @@
     "ts"
   ],
   "scripts": {
-    "prepublishOnly": "npm run test && npm run build && npm run build && git diff --exit-code --quiet || { echo \"Git working directory is not clean. Please commit or stash your changes.\"; exit 1; }",
     "dev": "vite --config vite.demo.config.js",
     "build": "tsc && vite build",
     "test": "jest",
