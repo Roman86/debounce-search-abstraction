@@ -7,6 +7,7 @@ on:
 
 permissions:
   id-token: write
+  contents: read
 
 jobs:
   publish:
@@ -18,6 +19,9 @@ jobs:
           node-version: '20.x'
           registry-url: 'https://registry.npmjs.org'
 
+      - name: Update npm
+        run: npm install -g npm@latest
+
       - name: Install dependencies
         run: npm ci
 
@@ -27,8 +31,6 @@ jobs:
       - name: Tests
         run: npm run test
 
-      - name: Check who is publishing
-        run: npm whoami
 
       - name: Publish
-        run: npm publish --access public --provenance
+        run: npm publish
